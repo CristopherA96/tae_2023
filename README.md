@@ -157,6 +157,141 @@ cd ~/eda_tools
 rm -rf magic/
 ```
 ### 1.5 Installing OpenLANE
+####  Docker
+For ease of installation, OpenLane uses Docker images.
+1. First, uninstall any such older versions before attempting to install a new version:
+	```sh
+	sudo apt-get remove docker docker-engine docker.io containerd runc
+	```
+2. Update the `apt` package index and install packages to allow `apt` to use a repository over HTTPS:
+	```sh
+	sudo apt-get update
+	sudo apt-get install ca-certificates curl gnupg
+	```
+3. Add Docker’s official GPG key:
+	```sh
+	sudo mkdir -m 0755 -p /etc/apt/keyrings
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+	```
+4. Use the following command to set up the repository:
+	```sh
+	echo \
+	  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+	  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+	  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	```
+5.  Update the `apt` package index:
+	```sh
+	sudo apt-get update
+	```
+6. Install Docker Engine, containerd, and Docker Compose.
+	```sh
+	sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+	```
+7. Verify that the Docker Engine installation is successful by running the `hello-world` image:
+	```sh
+	sudo docker run hello-world
+	```
+	_(A succesfull instalation of Docker would have the following ouput)_
+	```
+	Hello from Docker!
+	This message shows that your installation appears to be working correctly.
+
+	To generate this message, Docker took the following steps:
+	1. The Docker client contacted the Docker daemon.
+	2. The Docker daemon pulled the "hello-world" image from the Docker Hub. (amd64)
+	3. The Docker daemon created a new container from that image which runs the executable that produces the output you are currently reading.
+	4. The Docker daemon streamed that output to the Docker client, which sent it to your terminal.
+
+	To try something more ambitious, you can run an Ubuntu container with:
+	$ docker run -it ubuntu bash
+
+	Share images, automate workflows, and more with a free Docker ID:
+	https://hub.docker.com/
+
+	For more examples and ideas, visit:
+	https://docs.docker.com/get-started/
+	```
+
+##### Manage Docker as a non-root user
+1. Create the `docker` group.
+	```sh
+	sudo groupadd docker
+	```
+2. Add your user to the `docker` group.
+	```sh
+	sudo usermod -aG docker $USER
+	```
+3. Activate the changes to groups.
+	```sh
+	newgrp docker
+	```
+4. Verify that you can run `docker` commands without `sudo`.
+	```sh
+	docker run hello-world
+	```
+#### Checking Installation Requirements
+In order to check the installation, you can use the following commands:
+```sh
+git --version
+docker --version
+python3 --version
+python3 -m pip --version
+make --version
+python3 -m venv -h
+```
+Successful output will look like this:
+```
+git version 2.36.1
+Docker version 20.10.16, build aa7e414fdc
+Python 3.10.5
+pip 21.0 from /usr/lib/python3.10/site-packages/pip (python 3.10)
+GNU Make 4.3
+Built for x86_64-pc-linux-gnu
+Copyright (C) 1988-2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+usage: venv [-h] [--system-site-packages] [--symlinks | --copies] [--clear]
+            [--upgrade] [--without-pip] [--prompt PROMPT] [--upgrade-deps]
+            ENV_DIR [ENV_DIR ...]
+
+Creates virtual Python environments in one or more target directories.
+...
+Once an environment has been created, you may wish to activate it, e.g. by
+sourcing an activate script in its bin directory.
+```
+#### Download and Install OpenLane
+
+1. Download OpenLane from GitHub and change the working directory to cloned repository.
+	```sh
+	git clone https://github.com/The-OpenROAD-Project/OpenLane.git
+	cd OpenLane
+	```
+2. Execute the following.
+	```sh
+	sudo make pull-openlane
+	```
+3. Copy and paste the following commands to add the environment variables to your .bashrc file.
+_(You can either do it manually from any text editor or executing the following.)_
+
+	```sh
+	echo "export OPENLANE_ROOT=\"~/eda_tools/OpenLane\"" >> ~/.bashrc
+	echo "export PDK_ROOT=\"\$OPENLANE_ROOT/sky130A\"" >> ~/.bashrc
+	echo "export PDK_PATH=\"\$PDK_ROOT/sky130A\"" >> ~/.bashrc
+	source ~/.bashrc
+	```
+4. Build OpenLane and sky130 PDK.
+	```sh
+	make pdk  
+	make openlane
+	```
+5. Finally, run a ~5 minute test that verifies that the flow and the PDK were properly installed.
+	```sh
+	make test
+	```
+
+
 
 
 ## 2. References
@@ -167,5 +302,4 @@ rm -rf magic/
 - config.tcl Variables description [OpenLane config.tcl Variables](https://openlane.readthedocs.io/en/rtfd_fix/configuration/README.html)
 - Open_PDKs - open_pdks Download : [open_pdks](http://opencircuitdesign.com/open_pdks/)
 - Open_PDKs - skywater-pdk Install : [skywater-pdk_installation](http://opencircuitdesign.com/open_pdks/)
-
 

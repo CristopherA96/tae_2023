@@ -362,7 +362,7 @@ make openlane
 make test
 ```
 
-### 1.7 Install PDK
+### 1.7 Install the PDK
 
 --------
 
@@ -786,7 +786,7 @@ make openlane
 make test
 ```
 
-### 2.7 Install PDK
+### 2.7 Install the PDK
 
 The PDK is the Process Design Kit where you have information about all standard cells.
 

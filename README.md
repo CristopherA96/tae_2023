@@ -81,7 +81,7 @@ Now we can proceed to install required packages:
 
 ```sh
 
-sudo apt install -y build-essential python3 python3-venv python3-pip make git ruby-full
+sudo apt install -y build-essential python3 python3-venv python3-pip make git ruby-full libqt5opengl5
 
 ```
 
@@ -89,11 +89,11 @@ sudo apt install -y build-essential python3 python3-venv python3-pip make git ru
 
 --------
 
-Since NGSpice, Netgen and Klayout are available as pre-compiled packages, we can install them using _apt_ too.
+Since NGSpice and Netgen are available as pre-compiled packages, we can install them using _apt_ too.
 
 ```sh
 
-sudo apt install -y netgen-lvs ngspice ngspice-doc klayout build-essential
+sudo apt install -y netgen-lvs ngspice ngspice-doc build-essential
 
 ```
 
@@ -185,7 +185,7 @@ sudo make install
 
 --------
 
-Klayout is an editor that allows to change GDS and OASIS files and create them from scratch.
+[Klayout](https://www.klayout.de/) is an editor that allows to change GDS and OASIS files and create them from scratch.
 
 To install Klayout you should have some dependencies installed.
 
@@ -195,7 +195,7 @@ To install Klayout you should have some dependencies installed.
 
 - Ruby
 
-(**_Note:_** _some of these dependecies were already installed._)
+(**_Note:_** _some of these dependencies were already installed._)
 
 This package should be installed from <u>source code</u>. To do so, first download the most recent `.deb` file and run:
 
@@ -383,11 +383,38 @@ cd OpenLane
 
 ```sh
 
-sudo make
+sudo make pull-openlane
+
+```
+4. Copy and paste the following commands to add the environment variables to your .bashrc file. _(You can either do it manually from any text editor or executing the following.)_
+```sh
+
+echo "export OPENLANE_ROOT=\"/home/\$USER/eda_tools/OpenLane\"" >> ~/.bashrc
+
+echo "export PDK_ROOT=\"\$OPENLANE_ROOT/pdks\"" >> ~/.bashrc
+
+echo "export PDK_PATH=\"\$PDK_ROOT/sky130A\"" >> ~/.bashrc
+
+source ~/.bashrc
+
+```
+5. Build Sky130 PDK and OpenLane.
+
+```sh
+
+make pdk  
+
+make openlane
+
+```
+6. Finally, run a ~5 minute test that verifies that the flow and the PDK were properly installed.
+
+```sh
+
+make test
 
 ```
 
-(**_Note:_** _there is another way to install the full pdk by using the process `make pdk` after `sudo make` within OpenLane repository._)
 
 ###  1.7 Install PDK
 
@@ -459,13 +486,7 @@ The final step is to add environment variables to the .bashrc file, in order to 
 
 (**_Note:_** _You can add them either manually from any text editor or executing the following._)
 
-**OpenLane env variables**
 
-```sh
-
-echo "export OPENLANE_ROOT=\"~/eda_tools/OpenLane\"" >> ~/.bashrc
-
-```
 
 **PDK env variables**
 
@@ -477,7 +498,7 @@ echo "export PDK_PATH=\"\$PDK_ROOT/sky130A\"" >> ~/.bashrc
 
 ```
 
-**Extra env variable**
+**Aliases**
 
 You can use an alias called `magicsky` to run magic with the PDK tech file. Also, to use klayout create an alias called `klayoutsky`.
 
@@ -485,7 +506,7 @@ You can use an alias called `magicsky` to run magic with the PDK tech file. Also
 
 echo "alias magicsky=\"magic -T \$PDK_PATH/libs.tech/magic/sky130A.tech\"" >> ~/.bashrc
 
-echo "alias klayoutsky=\"klayout -nn \$PDK_PATH/libs.tech/magic/sky130A.tech\"" >> ~/.bashrc
+echo "alias klayoutsky=\"klayout -nn \$PDK_PATH/libs.tech/klayout/tech/sky130A.lyt\"" >> ~/.bashrc
 
 ```
 
@@ -841,6 +862,7 @@ python3 -m venv -h
 
 ```
 
+
 2. Download OpenLane from GitHub and change the working directory to cloned repository.
 
 ```sh
@@ -857,11 +879,38 @@ cd OpenLane
 
 ```sh
 
-sudo make
+sudo make pull-openlane
+
+```
+4. Copy and paste the following commands to add the environment variables to your .bashrc file. _(You can either do it manually from any text editor or executing the following.)_
+```sh
+
+echo "export OPENLANE_ROOT=\"/home/\$USER/eda_tools/OpenLane\"" >> ~/.bashrc
+
+echo "export PDK_ROOT=\"\$OPENLANE_ROOT/pdks\"" >> ~/.bashrc
+
+echo "export PDK_PATH=\"\$PDK_ROOT/sky130A\"" >> ~/.bashrc
+
+source ~/.bashrc
+
+```
+5. Build Sky130 PDK and OpenLane.
+
+```sh
+
+make pdk  
+
+make openlane
+
+```
+6. Finally, run a ~5 minute test that verifies that the flow and the PDK were properly installed.
+
+```sh
+
+make test
 
 ```
 
-(**_Note:_** _there is another way to install the full pdk by using the process `make pdk` after `sudo make` within OpenLane repository._)
 
 ###  2.7 Install PDK
 
@@ -931,14 +980,6 @@ The final step is to add environment variables to the .bashrc file, in order to 
 
 (**_Note:_** _You can add them either manually from any text editor or executing the following._)
 
-**OpenLane env variables**
-
-```sh
-
-echo "export OPENLANE_ROOT=\"~/eda_tools/OpenLane\"" >> ~/.bashrc
-
-```
-
 **PDK env variables**
 
 ```sh
@@ -949,7 +990,7 @@ echo "export PDK_PATH=\"\$PDK_ROOT/sky130A\"" >> ~/.bashrc
 
 ```
 
-**Extra env variable**
+**Extra aliases**
 
 You can use an alias called `magicsky` to run magic with the PDK tech file. Also, to use klayout create an alias called `klayoutsky`.
 
@@ -957,7 +998,7 @@ You can use an alias called `magicsky` to run magic with the PDK tech file. Also
 
 echo "alias magicsky=\"magic -T \$PDK_PATH/libs.tech/magic/sky130A.tech\"" >> ~/.bashrc
 
-echo "alias klayoutsky=\"klayout -nn \$PDK_PATH/libs.tech/magic/sky130A.tech\"" >> ~/.bashrc
+echo "alias klayoutsky=\"klayout -nn \$PDK_PATH/libs.tech/klayout/tech/sky130A.lyt\"" >> ~/.bashrc
 
 ```
 
@@ -993,15 +1034,25 @@ rm ~/Downloads/klayout_0.28.6-1_amd64.deb
 		You will see a process being executed, and will take around 5 min to finish.
 		The last lines should look like this:
 		```
-				
+		.
+		.
+		.
+		[INFO]: There are no hold violations in the design at the typical corner.
+		[INFO]: There are no setup violations in the design at the typical corner.
+		[SUCCESS]: Flow complete.
+		[INFO]: Note that the following warnings have been generated:
+		[WARNING]: Current core area is too small for the power grid settings chosen. The power grid will be scaled down.
+
+		Basic test passed
+
 		```
 
 
 - ### Magic VLSI Test
 	(**_Note:_** This test requires that OpenLANE test has been succesfully completed.)
-	- In order to verify `magic` was correctly installed and the alias was correctly set, move to /..../spm/runs/ :
+	- In order to verify `magic` was correctly installed and the alias was correctly set, move to /..../results/signoff/ :
 		```sh
-		cd ~/eda_tools/OpenLane/designs/spm/runs/
+		cd ~/eda_tools/OpenLane/designs/spm/runs/openlane_test/results/signoff
 		```
 
 		and run the following command:
@@ -1009,26 +1060,24 @@ rm ~/Downloads/klayout_0.28.6-1_amd64.deb
 		magicsky
 		```
 	-	The following two windows should appear: 
-		![Magic gui.](Magic%20GUI.)
+		![Magic_gui.](./images/magic_test.png)
 
-	-	Now, go to `file -> read gds` and select `spm.gds`
-		You should be able to watch the following GDS:
-		![Magic gui.](Magic%20GUI.)
+	-	If Magic is correctly installed and pointing to the PDK, the right-side layer pallet, will be displayed. 
 
 
 - ### Klayout Test
 	(**_Note:_** This test requires that OpenLANE test has been succesfully completed.)
 
-	- In order to verify Klayout was correctly installed and the alias was correctly set, move to /..../spm/runs/ 
+	- In order to verify Klayout was correctly installed and the alias was correctly set, move to /..../results/signoff/  :
 		```sh
-		cd ~/eda_tools/OpenLane/designs/spm/runs/
+		cd ~/eda_tools/OpenLane/designs/spm/runs/openlane_test/results/signoff
 		```
 		and run the following command:
 		```sh
 		klayoutsky spm.gds
 		```
 	-	You should be able to watch the following GDS:
-		![Klayout_gds](Magic%20GUI.)
+		![Klayout_gds](./images/klayout_gds_test.png)
 
 
 

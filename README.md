@@ -608,6 +608,8 @@ cd klayout/
 
 ### 2.6 Install OpenLane
 
+--------
+
 OpenLane is an open source tool to automate RTL to GDSII flow.
 
 To install OpenLane is by using <u>source code</u>. OpenLane will not be install in your PC, instead it uses a docker container.
@@ -788,6 +790,8 @@ make test
 
 ### 2.7 Install the PDK
 
+--------
+
 The PDK is the Process Design Kit where you have information about all standard cells.
 
 First, we have to clone the Skywater repository and initialize the needed submodules.
@@ -882,6 +886,8 @@ rm ~/Downloads/klayout_0.28.6-1_amd64.deb
 
 ## 3. Tests
 
+--------
+
 - ### OpenLANE Test
   
   - In order to verify OpenLANE was correctly installed and the variables needed are pointing to the PDK, move to OpenLane directory and run the following command:
@@ -949,9 +955,13 @@ rm ~/Downloads/klayout_0.28.6-1_amd64.deb
 
 ## 4. References
 
+--------
+
 - OpenLANE Official Documentation: [OpenLane Documentation](https://openlane.readthedocs.io/en/latest/reference/index.html)
 
 ## 5. Resources
+
+--------
 
 - config.tcl Variables description [OpenLane config.tcl Variables](https://openlane.readthedocs.io/en/rtfd_fix/configuration/README.html)
 

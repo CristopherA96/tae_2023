@@ -207,7 +207,7 @@ sudo apt remove docker docker-engine docker.io containerd runc
 ```sh
 sudo apt update && sudo apt upgrade
 
-sudo apt install ca-certificates curl gnupg lsb_release
+sudo apt install ca-certificates curl gnupg
 ```
 
 3. <u>Add Docker’s official GPG key:</u>
@@ -221,11 +221,9 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 4. <u>Use the following command to set up the repository:</u>
 
 ```sh
-echo \
-
-"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-$(lsb_release -cs) stable" | \
-sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
 
 5. <u>Update the `apt` package index:</u>
@@ -645,13 +643,9 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 4. <u>Use the following command to set up the repository:</u>
 
 ```sh
-echo \
-
-"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-
-$(. /etc/os-release && echo $VERSION_CODENAME) stable" | \
-
-sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
 
 5. <u>Update the `dnf` package index:</u>

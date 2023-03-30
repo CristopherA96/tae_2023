@@ -4,7 +4,7 @@
 
 ### Table of contents
 
-- 1. [Ubuntu 18.04+](#1-ubuntu-1804+)
+- 1. [Ubuntu](#1-ubuntu)
      - 1.1 [Prerequisites](#11-prerequisites)
      - 1.2 [Install pre-compiled apt packages](#12-install-pre-compiled-apt-packages)
      - 1.3 [Pre-setup](#13-pre-setup)
@@ -13,7 +13,7 @@
      - 1.6 [Install OpenLANE](#16-install-openlane)
      - 1.7 [Install the PDK](#17-install-the-pdk)
 
-- 2. [Fedora/Other GNU/Linux Distro](#2-fedora)
+- 2. [Fedora](#2-fedora)
      - 2.1 [Prerequisites](#21-prerequisites)
      - 2.2 [Pre-setup](#22-pre-setup)
      - 2.3 [Install NetGen LVS and NGSpice](#23-install-netgen-lvs-and-ngspice)
@@ -46,7 +46,9 @@ The following packages will be installed:
 
 - OpenLANE
 
-## 1. Ubuntu 18.04+
+## 1. Ubuntu
+
+The version of the Ubuntu distro should be 18.04+.
 
 ### 1.1 Prerequisites
 

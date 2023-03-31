@@ -57,7 +57,8 @@ The version of the Ubuntu distro should be 18.04+.
 In order to install the EDA tool-set within Ubuntu, previously you need to have installed some other required packages. To do so, first update and upgrade packages database and upgrade the packages to avoid version mismatches:
 
 ```sh
-sudo apt update && sudo apt upgrade
+sudo apt update 
+sudo apt upgrade
 ```
 
 Now we can proceed to install required packages:
@@ -205,7 +206,8 @@ sudo apt remove docker docker-engine docker.io containerd runc
 2. <u>Update the `apt` package index and install packages to allow `apt` to use a repository over HTTPS:</u>
 
 ```sh
-sudo apt update && sudo apt upgrade
+sudo apt update 
+sudo apt upgrade
 
 sudo apt install ca-certificates curl gnupg
 ```

@@ -328,10 +328,10 @@ git clone https://github.com/The-OpenROAD-Project/OpenLane.git
 cd OpenLane
 ```
 
-3. <u>Execute the following.</u>
+3. <u>Execute the following command to get the latest docker image for OpenLane.</u>
 
 ```sh
-sudo make pull-openlane
+sudo make all
 ```
 
 4. <u>Copy and paste the following commands to add the environment variables to your .bashrc file.</u> _(You can either do it manually from any text editor or executing the following.)_
@@ -346,12 +346,10 @@ echo "export PDK_PATH=\"\$PDK_ROOT/sky130A\"" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-5. <u>Build Sky130 PDK and OpenLane.</u>
+5. <u>Build Sky130 PDK.</u>
 
 ```sh
 make pdk  
-
-make openlane
 ```
 
 6. <u>Finally, run a ~5 minute test that verifies that the flow and the PDK were properly installed.</u>
@@ -435,7 +433,7 @@ You can use an alias called `magicsky` to run magic with the PDK tech file. Also
 ```sh
 echo "alias magicsky=\"magic -T \$PDK_PATH/libs.tech/magic/sky130A.tech\"" >> ~/.bashrc
 
-echo "alias klayoutsky=\"klayout -e -nn \$PDK_PATH/libs.tech/klayout/tech/sky130A.lyt\"" >> ~/.bashrc
+echo "alias klayoutsky=\"klayout -e -nn \$PDK_PATH/libs.tech/klayout/tech/sky130A.lyt -l \$PDK_PATH/libs.tech/klayout/tech/sky130A.lyp\"" >> ~/.bashrc
 ```
 
 Once, all environment variables were added, load env vars to the system, to do so, run:
@@ -750,10 +748,10 @@ git clone https://github.com/The-OpenROAD-Project/OpenLane.git
 cd OpenLane
 ```
 
-3. <u>Execute the following.</u>
+3. <u>Execute the following to build OpenLane.</u>
 
 ```sh
-sudo make pull-openlane
+sudo make all
 ```
 
 4. <u>Copy and paste the following commands to add the environment variables to your .bashrc file.</u> _(You can either do it manually from any text editor or executing the following.)_
@@ -768,12 +766,10 @@ echo "export PDK_PATH=\"\$PDK_ROOT/sky130A\"" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-5. <u>Build Sky130 PDK and OpenLane.</u>
+5. <u>Build Sky130 PDK.</u>
 
 ```sh
 make pdk  
-
-make openlane
 ```
 
 6. <u>Finally, run a ~5 minute test that verifies that the flow and the PDK were properly installed.</u>
@@ -857,7 +853,7 @@ You can use an alias called `magicsky` to run magic with the PDK tech file. Also
 ```sh
 echo "alias magicsky=\"magic -T \$PDK_PATH/libs.tech/magic/sky130A.tech\"" >> ~/.bashrc
 
-echo "alias klayoutsky=\"klayout -nn \$PDK_PATH/libs.tech/klayout/tech/sky130A.lyt\"" >> ~/.bashrc
+echo "alias klayoutsky=\"klayout -e -nn \$PDK_PATH/libs.tech/klayout/tech/sky130A.lyt -l \$PDK_PATH/libs.tech/klayout/tech/sky130A.lyp\"" >> ~/.bashrc
 ```
 
 Once, all environment variables were added, load env vars to the system, to do so, run:
